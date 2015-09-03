@@ -1,0 +1,7 @@
+media-libs/gd png fontconfig truetype
+net-analyzer/vnstat gd
+net-dns/dnsmasq auth-dns dhcp-tools
+net-misc/batman-adv bla dat debug mcast nc
+net-misc/alfred visd
+net-misc/ffmap-backend rrd
+net-misc/openvpn iproute2 passwordsave

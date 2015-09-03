@@ -1,0 +1,28 @@
+# IPv4 and IPv6 localhost aliases
+#
+127.0.0.1                       localhost
+::1                             localhost ip6-localhost ip6-loopback
+ff02::1                         ip6-allnodes
+ff02::2                         ip6-allrouters
+
+# own external addresses
+78.46.192.49                    gw2.freifunk-gera-greiz.de gw2
+2a01:4f8:c17:229::12            gw2.freifunk-gera-greiz.de gw2
+
+# Freifunk external
+148.251.158.22                  gw1.freifunk-gera-greiz.de gw1
+2a01:4f8:210:5132:201::22       gw1.freifunk-gera-greiz.de gw1
+
+# Freifunk internal
+
+10.181.0.1                      nextnode.ffggrz
+fdb5:078b:64cc::1               nextnode.ffggrz
+
+10.181.0.11                     gw1.ffggrz 1.ntp.services.ffggrz 1.updates.services.ffggrz
+fdb5:78b:64cc::11               gw1.ffggrz 1.ntp.services.ffggrz 1.updates.services.ffggrz
+
+10.181.0.12                     gw2.ffggrz 2.ntp.services.ffggrz 2.updates.services.ffggrz
+fdb5:78b:64cc::12               gw2.ffggrz 2.ntp.services.ffggrz 2.updates.services.ffggrz
+
+10.181.0.101                    raspbx.ffggrz
+fdb5:78b:64cc::101              raspbx.ffggrz

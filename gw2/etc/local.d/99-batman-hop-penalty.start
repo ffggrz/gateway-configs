@@ -1,0 +1,1 @@
+echo 60 > /sys/class/net/ggrzBAT/mesh/hop_penalty
