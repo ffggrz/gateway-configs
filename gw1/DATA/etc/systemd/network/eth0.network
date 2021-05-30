@@ -1,0 +1,85 @@
+# Example of fixed IP address configuration:
+#
+# Customize and move as 00-eth0.network to /etc/systemd/network
+# (refer to "man systemd.network", "man systemd-resolved")
+#
+# DON'T FORGET: add appropriate entries in /etc/hosts
+#  <IPv4> <fqdn> <hostname>
+#  <IPv6> <fqdn> <hostname>
+
+[Match]
+Name=eth0
+
+[Network]
+Description=first network port
+# Hetzner DNS Server
+DNS=213.133.100.100
+DNS=213.133.99.99
+DNS=2a01:4f8:0:1::add:1010
+DNS=2a01:4f8:0:1::add:9898
+# Domains
+Domains=freifunk-gera-greiz.de
+Domains=ffggrz.de
+Domains=ffggrz
+
+Tunnel=ggrzTUN-1-2
+Tunnel=ggrzTUN-1-3
+Tunnel=ffrl-a-ak-ber
+Tunnel=ffrl-a-ix-dus
+Tunnel=ffrl-b-ak-ber
+Tunnel=ffrl-b-ix-dus
+
+[Address]
+Address=136.243.179.182
+##Address=136.243.179.181
+Peer=138.201.64.235/32
+
+[Address]
+Address=2a01:4f8:172:19ea:201::182/128
+##Address=2a01:4f8:172:19ea:201::181/128
+
+[Route]
+Gateway=138.201.64.235
+
+[Route]
+Gateway=fe80::1
+
+[Route]
+Destination=192.168.0.0/16
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=172.16.0.0/12
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=10.0.0.0/8
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=100.64.0.0/10
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=169.254.0.0/16
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=192.0.2.0/24
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=198.51.100.0/24
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=203.0.113.0/24
+Type=unreachable
+Metric=999

@@ -1,0 +1,7 @@
+# all files and directories listed here are copied from /DATA to the system,
+# directories recursively (one file / directory per line)
+#
+/etc/fstab
+/etc/hostname
+/etc/systemd
+/etc/sysctl.d

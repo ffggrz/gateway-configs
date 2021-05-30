@@ -1,0 +1,151 @@
+[Match]
+Name=ggrzBR
+
+[Network]
+# Freifunkinterne Adresse IPv4
+Address=10.181.0.11/18
+# Freifunkinterne Adresse IPv6 ICVPN
+Address=fdb5:078b:64cc::11/64
+# Freifunkinterne Adresse IPv6 FFRL
+Address=2a03:2260:100b::11/64
+
+[Route]
+# Kernelroute für lokales ggrz-IPv4-Netz in Table ggrz
+Destination=10.181.0.0/18
+PreferredSource=10.181.0.11
+Protocol=kernel
+Scope=link
+Table=181
+
+[Route]
+# Kernelroute für lokales ggrz-IPv4-Netz in Table icvpn
+Destination=10.181.0.0/18
+PreferredSource=10.181.0.11
+Protocol=kernel
+Scope=link
+Table=42
+
+[Route]
+# Kernelroute für lokales ggrz-IPv4-Netz in Table ffrl
+Destination=10.181.0.0/18
+PreferredSource=10.181.0.11
+Protocol=kernel
+Scope=link
+Table=83
+
+[Route]
+# Kernelroute für lokales icvpn-IPv6-Netz in Table ggrz
+Destination=fdb5:078b:64cc::/64
+PreferredSource=fdb5:078b:64cc::11
+Protocol=kernel
+Table=181
+
+[Route]
+# Kernelroute für lokales icvpn-IPv6-Netz in Table icvpn
+Destination=fdb5:078b:64cc::/64
+PreferredSource=fdb5:078b:64cc::11
+Protocol=kernel
+Table=42
+
+[Route]
+# Kernelroute für lokales icvpn-IPv6-Netz in Table ffrl
+Destination=fdb5:078b:64cc::/64
+PreferredSource=fdb5:078b:64cc::11
+Protocol=kernel
+Table=83
+
+[Route]
+# Kernelroute für lokales ffrl-IPv6-Netz in Table ggrz
+Destination=2a03:2260:100b::/64
+PreferredSource=2a03:2260:100b::11
+Protocol=kernel
+Table=181
+
+[Route]
+# Kernelroute für lokales ffrl-IPv6-Netz in Table icvpn
+Destination=2a03:2260:100b::/64
+PreferredSource=2a03:2260:100b::11
+Protocol=kernel
+Table=42
+
+[Route]
+# Kernelroute für lokales ffrl-IPv6-Netz in Table ffrl
+Destination=2a03:2260:100b::/64
+PreferredSource=2a03:2260:100b::11
+Protocol=kernel
+Table=83
+
+[Route]
+# Kernelroute für lokales IPv6-Local-Netz in Table ggrz
+Destination=fe80::/64
+Protocol=kernel
+Table=181
+
+[Route]
+# Kernelroute für lokales IPv6-Local-Netz in Table icvpn
+Destination=fe80::/64
+Protocol=kernel
+Table=42
+
+[Route]
+# Kernelroute für lokales IPv6-Local-Netz in Table ffrl
+Destination=fe80::/64
+Protocol=kernel
+Table=83
+
+[RoutingPolicyRule]
+# alles, was über die Freifunk-Bridge hereinkommt,
+# wird über die Table ggrz geroutet
+Family=both
+IncomingInterface=ggrzBR
+Table=181
+Priority=1810
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv4-Adresse vom ICVPN-Tunnel
+# als Absender werden über die Table ggrz geroutet
+From=10.207.0.181
+Table=181
+Priority=30999
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv4-Adresse vom FFRL-Tunnel
+# als Absender werden über die Table ggrz geroutet
+From=185.66.194.27
+Table=181
+Priority=10181
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv6-Adresse vom ICVPN-Tunnel
+# als Absender werden über die Table ggrz geroutet
+From=fec0::a:cf:0:b5
+Table=181
+Priority=30999
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv6-Adresse vom FFRL-Tunnel
+# a_ak_ber als Absender werden über die Table ggrz geroutet
+From=2a03:2260:0:1dd::2
+Table=181
+Priority=10181
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv6-Adresse vom FFRL-Tunnel
+# a_ix_dus als Absender werden über die Table ggrz geroutet
+From=2a03:2260:0:1de::2
+Table=181
+Priority=10181
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv6-Adresse vom FFRL-Tunnel
+# b_ak_ber als Absender werden über die Table ggrz geroutet
+From=2a03:2260:0:1df::2
+Table=181
+Priority=10181
+
+[RoutingPolicyRule]
+# Pakete mit der Gateway-eigenen IPv6-Adresse vom FFRL-Tunnel
+# b_ix_dus als Absender werden über die Table ggrz geroutet
+From=2a03:2260:0:1e0::2
+Table=181
+Priority=10181

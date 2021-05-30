@@ -1,0 +1,6 @@
+[Match]
+Name=eth1
+
+[Network]
+Description=2. Netzwerk-Port (interne Freifunk-Bridge)
+Bridge=ggrzBR

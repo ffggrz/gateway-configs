@@ -1,2 +1,2 @@
 # gateway-configs
-Konfigurationen der Gateways und weiterer Maschinen der Freifunk-Community Gera-Greiz
+Konfigurationen der Gateways der Freifunk-Community Gera-Greiz

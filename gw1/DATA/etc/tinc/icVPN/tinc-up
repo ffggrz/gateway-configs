@@ -1,0 +1,23 @@
+#!/bin/sh
+# Interface aktivieren und IP-Adressen setzen
+/bin/ip link set dev $INTERFACE up
+/bin/ip addr add dev $INTERFACE 10.207.0.181/16 broadcast 10.207.255.255 scope link
+/bin/ip -6 addr add dev $INTERFACE fec0::a:cf:0:b5/96 preferred_lft 0
+
+# Device-Routen in den anderen Routing-Tabellen
+/bin/ip -4 route add 10.207.0.0/16 proto kernel dev $INTERFACE src 10.207.0.181 table ggrz
+/bin/ip -6 route add fec0::a:cf:0:0/96 proto kernel dev $INTERFACE table ggrz
+/bin/ip -6 route add fe80::/64 proto kernel dev $INTERFACE table ggrz
+/bin/ip -4 route add 10.207.0.0/16 proto kernel dev $INTERFACE src 10.207.0.181 table icvpn
+/bin/ip -6 route add fec0::a:cf:0:0/96 proto kernel dev $INTERFACE table icvpn
+/bin/ip -6 route add fe80::/64 proto kernel dev $INTERFACE table icvpn
+
+### Default-Route zu vpn03 Berlin
+##ip route add 0.0.0.0/1 via 10.207.0.6 dev $INTERFACE table ggrz
+##ip route add 128.0.0.0/1 via 10.207.0.6 dev $INTERFACE table ggrz
+
+# ip rules
+/bin/ip rule add priority 31000 iif $INTERFACE table icvpn
+/bin/ip rule add priority 31001 iif $INTERFACE unreachable
+/bin/ip -6 rule add priority 31000 iif $INTERFACE table icvpn
+/bin/ip -6 rule add priority 31001 iif $INTERFACE unreachable

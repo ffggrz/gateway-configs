@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# dnsmasq configuration directory
+CONF_DIR=/etc/dnsmasq.d/dhcp-dns-static
+
+function getCurrentVersion() {
+# Get hash from latest revision
+  git log --format=format:%H -1
+}
+
+function reverseIp6 { # https://gist.github.com/lsowen/4447d916fd19cbb7fce4
+  while read -r host ip; do
+    ptr=$(echo "$ip" | awk -F: 'BEGIN {OFS=""; }{addCount = 9 - NF; for(i=1; i<=NF;i++){if(length($i) == 0){ for(j=1;j<=addCount;j++){$i = ($i "0000");} } else { $i = substr(("0000" $i), length($i)+5-4);}}; print}' | rev | sed -e "s/./&./g")
+    echo "ptr-record=${ptr}ip6.arpa,${host}"
+  done
+}
+
+
+cd $CONF_DIR
+
+# Get current version hash
+GIT_REVISION=$(getCurrentVersion)
+
+# Automagically commit local changes
+# This preserves local changes
+git commit -m "CRON: auto commit"
+
+# Pull latest changes from upstream
+git fetch
+git merge origin/master -m "Auto Merge"
+
+# Get new version hash
+GIT_NEW_REVISION=$(getCurrentVersion)
+
+echo "old: $GIT_REVISION"
+echo "new: $GIT_NEW_REVISION"
+
+if [ $GIT_REVISION != $GIT_NEW_REVISION ]
+then
+  # Reload updated configuration
+  echo "Reload dnsmasq configuration."
+
+  cat $CONF_DIR/ffggrz-dns.conf | sed -r 's/^address=\/([^\/]*).*\/([0-9]*)\.([0-9]*)\.([0-9]*)\.([0-9]*)$/ptr-record=\5.\4.\3.\2.in-addr.arpa,\1./' | grep '^ptr-record' > $CONF_DIR/ptr_records_from_static
+  sed -r 's/^address=\/([^\/]*).*\/([^\/]*)$/\1 \2/' $CONF_DIR/ffggrz-dns.conf | grep -E ' (fdb5|2a03):' | reverseIp6 >> $CONF_DIR/ptr_records_from_static
+
+  /usr/sbin/dnsmasq --test
+  if [ $? -eq 0 ]; then
+    /bin/systemctl reload dnsmasq
+  else
+    echo "dnsmasq not reloaded!"
+  fi
+fi

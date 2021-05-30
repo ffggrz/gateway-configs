@@ -1,0 +1,27 @@
+# all files and directories listed here are linked from /DATA to the system,
+# directories recursively (one file / directory per line)
+#
+/etc/bird
+/etc/dnsmasq.conf
+/etc/dnsmasq.d
+/etc/fastd
+/etc/hosts
+/etc/icvpn
+/etc/iproute2/rt_tables
+/etc/nginx/conf.d
+/etc/nginx/nginx.conf
+/etc/ntp.conf
+/etc/scripts
+/etc/ssh
+/etc/ssl/nginx
+/etc/tinc/icVPN
+/etc/tunneldigger
+/etc/vnstat-graphs.sh
+/opt/ext-respondd/alias.json
+/opt/ext-respondd/config.json
+/var/lib/ebtables
+/var/lib/ip6tables
+/var/lib/iptables
+/var/lib/vnstat
+/var/www/localhost
+/var/www/updates.services.ffggrz

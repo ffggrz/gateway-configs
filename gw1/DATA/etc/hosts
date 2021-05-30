@@ -1,0 +1,40 @@
+# IPv4 and IPv6 localhost aliases
+#
+127.0.0.1                       localhost
+::1                             localhost ip6-localhost ip6-loopback
+fe00::0                         ip6-localnet
+ff00::0                         ip6-mcastprefix
+ff02::1                         ip6-allnodes
+ff02::2                         ip6-allrouters
+ff02::3                         ip6-allhosts
+
+# own external addresses
+136.243.179.182                 gw1.freifunk-gera-greiz.de gw1
+2a01:4f8:172:19ea:201::182      gw1.freifunk-gera-greiz.de gw1
+
+# Freifunk external
+94.130.191.8                    gw2.freifunk-gera-greiz.de gw2
+2a01:4f8:1c0c:80c3::8           gw2.freifunk-gera-greiz.de gw2
+2a01:4f8:1c0c:80c8::8           gw2-breakout.freifunk-gera-greiz.de gw2-breakout
+78.47.218.181                   gw3.freifunk-gera-greiz.de gw3
+2a01:4f8:c01f:d3::1             gw3.freifunk-gera-greiz.de gw3
+2a01:4f8:c01f:d7::1             gw3-breakout.freifunk-gera-greiz.de gw3-breakout
+
+# Freifunk internal
+10.181.0.1                      nextnode.ffggrz
+fdb5:078b:64cc::1               nextnode.ffggrz
+
+##10.181.0.11                     gw1.ffggrz 1.ntp.services.ffggrz 1.updates.services.ffggrz
+10.181.0.11                     gw1.ffggrz
+fdb5:78b:64cc::11               gw1.ffggrz 1.ntp.services.ffggrz 1.updates.services.ffggrz
+2a03:2260:100b::11              gw1.ffggrz 1.ntp.services.ffggrz 1.updates.services.ffggrz
+
+##10.181.0.12                     gw2.ffggrz 2.ntp.services.ffggrz 2.updates.services.ffggrz
+10.181.0.12                     gw2.ffggrz
+fdb5:78b:64cc::12               gw2.ffggrz 2.ntp.services.ffggrz 2.updates.services.ffggrz
+2a03:2260:100b::12              gw2.ffggrz 2.ntp.services.ffggrz 2.updates.services.ffggrz
+
+##10.181.0.13                     gw3.ffggrz 3.ntp.services.ffggrz 3.updates.services.ffggrz
+10.181.0.13                     gw3.ffggrz
+fdb5:78b:64cc::13               gw3.ffggrz 3.ntp.services.ffggrz 3.updates.services.ffggrz
+2a03:2260:100b::13              gw3.ffggrz 3.ntp.services.ffggrz 3.updates.services.ffggrz

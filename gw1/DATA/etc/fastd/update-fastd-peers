@@ -1,0 +1,36 @@
+#!/bin/bash
+# Simple script for update of fastd peers from git
+
+# fastd configuration directory
+FASTD_CFG=/etc/fastd
+
+# FF Communities
+COMMUNITIES="ggrz"
+
+function getCurrentVersion() {
+# Get hash from latest revision
+git log --format=format:%H -1
+}
+
+cd $FASTD_CFG/$COMMUNITIES/peers
+
+# Get current version hash
+GIT_REVISION=$(getCurrentVersion)
+
+# Automagically commit local changes
+# This preserves local changes
+git commit -m "CRON: auto commit"
+
+# Pull latest changes from upstream
+git fetch
+git merge origin/master -m "Auto Merge"
+
+# Get new version hash
+GIT_NEW_REVISION=$(getCurrentVersion)
+
+if [ $GIT_REVISION != $GIT_NEW_REVISION ]
+then
+  # Reload updated configuration
+  echo "Reload fastd configuration."
+  kill -HUP $(pidof fastd.$COMMUNITIES)
+fi

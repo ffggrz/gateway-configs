@@ -1,0 +1,17 @@
+{
+  "nodeinfo": {
+    "node_id": "deadbeef0102",
+    "hostname": "gw1",
+    "owner": {
+      "contact": "admin@freifunk-gera-greiz.de"
+    },
+    "system": {
+      "site_code": "ffggrz",
+      "role": "gateway"
+    },
+    "vpn": true,
+    "pages": [
+      "http://gw1.freifunk-gera-greiz.de/vnstat/"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# variables
+BACKUP_SRC="/DATA"
+BACKUP_EXCLUDE="/DATA/.APPLIANCE/backup.exclude"
+
+# start
+sudo rsync --verbose --recursive --links --delete --exclude-from="$BACKUP_EXCLUDE" "$BACKUP_SRC" /DATA/.BACKUP
