@@ -1,0 +1,9 @@
+[NetDev]
+Name=ggrzTUN-3-2
+Kind=gretap
+MACAddress=de:ad:be:ef:03:05
+
+[Tunnel]
+Remote=94.130.191.8
+Local=78.47.218.181
+Key=3

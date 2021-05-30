@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# tunneldigger blacklist configuration directory
+CONF_DIR=/etc/tunneldigger/ggrz/blacklist
+
+function getCurrentVersion() {
+# Get hash from latest revision
+  git log --format=format:%H -1
+}
+
+cd $CONF_DIR
+
+# Get current version hash
+GIT_REVISION=$(getCurrentVersion)
+
+# Automagically commit local changes
+# This preserves local changes
+git commit -m "CRON: auto commit"
+
+# Pull latest changes from upstream
+git fetch
+git merge origin/master -m "Auto Merge"
+
+# Get new version hash
+GIT_NEW_REVISION=$(getCurrentVersion)
+
+echo "old: $GIT_REVISION"
+echo "new: $GIT_NEW_REVISION"
+
+if [ $GIT_REVISION != $GIT_NEW_REVISION ]
+then
+  echo "Blacklist updated."
+fi

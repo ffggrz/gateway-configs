@@ -1,0 +1,82 @@
+#!/bin/bash
+# Simple script for update of IC-VPN meta information from git upstream
+# and automated creation of derived bird and dnsmasq configuration.
+# Note that scripts are not automatically updated for security reasons.
+
+# Local icvpn-meta and icvpn-script clones
+ICVPN_META=/etc/icvpn/meta
+ICVPN_SCRIPTS=/etc/icvpn/scripts
+
+# icvpn interface
+ICVPN_IFC=icVPN
+
+# Name of own community (as used in icvpn-meta repository)
+OWN_COMMUNITY=gera-greiz
+
+# Bird peer configuration (IPv4 and IPv6)
+BIRD_CONF=/etc/bird/bird.d/icvpn
+BIRD6_CONF=/etc/bird/bird6.d/icvpn
+
+# Bird roa configuration (IPv4 and IPv6)
+BIRD_ROA=/etc/bird/bird.d/icvpn-roa
+BIRD6_ROA=/etc/bird/bird6.d/icvpn-roa
+BIRD_ROA_LEN=24
+BIRD6_ROA_LEN=64
+
+# Bird templates used for peers (IPv4 and IPv6)
+BIRD_TEMPLATE=peers
+BIRD6_TEMPLATE=peers
+
+# Dnsmasq configuration
+DNSMASQ_CONF=/etc/dnsmasq.d/icvpn
+
+function getCurrentVersion() {
+  # Get hash from latest revision
+  git log --format=format:%H -1
+}
+
+cd $ICVPN_META
+
+# Get current version hash
+GIT_REVISION=$(getCurrentVersion)
+
+# Automagically commit local changes
+# This preserves local changes
+git commit -m "CRON: auto commit"
+
+# Pull latest changes from upstream
+git fetch
+git merge origin/master -m "Auto Merge"
+
+# Get new version hash
+GIT_NEW_REVISION=$(getCurrentVersion)
+
+# Check whether content of icvpn-meta has changed
+if [ $GIT_REVISION != $GIT_NEW_REVISION ]
+then
+  cd $ICVPN_SCRIPTS
+
+  # Create bird configuration
+  ./mkroa -4 -f bird -s $ICVPN_META -m $BIRD_ROA_LEN -x $OWN_COMMUNITY > $BIRD_ROA
+  ./mkroa -6 -f bird -s $ICVPN_META -m $BIRD6_ROA_LEN -x $OWN_COMMUNITY > $BIRD6_ROA
+  # Restrict access
+  ##chown bird.bird $BIRD_ROA $BIRD6_ROA
+  chmod 640 $BIRD_ROA $BIRD6_ROA
+
+  # Create dnsmasq configuration
+  ./mkdns -f dnsmasq -s $ICVPN_META -x $OWN_COMMUNITY > $DNSMASQ_CONF
+
+  # Version has changed we need to update
+  echo "Reload dnsmasq configuration."
+  /sbin/rc-service dnsmasq restart
+fi
+
+# Always create bird configuration (because of mark unreachable peers passive)
+cd $ICVPN_SCRIPTS
+./mkbgp -4 -f bird -I $ICVPN_IFC -s $ICVPN_META -d $BIRD_TEMPLATE -x $OWN_COMMUNITY > $BIRD_CONF
+./mkbgp -6 -f bird -I $ICVPN_IFC -s $ICVPN_META -d $BIRD6_TEMPLATE -x $OWN_COMMUNITY > $BIRD6_CONF
+##chown bird.bird $BIRD_CONF $BIRD6_CONF
+chmod 640 $BIRD_CONF $BIRD6_CONF
+echo "Reload bird configuration."
+kill -HUP $(pidof bird)
+kill -HUP $(pidof bird6)

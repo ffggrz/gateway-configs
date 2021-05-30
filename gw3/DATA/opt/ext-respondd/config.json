@@ -1,0 +1,7 @@
+{
+  "batman": "ggrzBAT",
+  "mesh-vpn": [ "ggrzVPN", "ggrzTUN-3-1", "ggrzTUN-3-2" ],
+  "bridge": "ggrzBR",
+  "wan": "eth0",
+  "addr": "ff05::2:1001"
+}

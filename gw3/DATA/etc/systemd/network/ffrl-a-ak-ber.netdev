@@ -1,0 +1,8 @@
+[NetDev]
+Name=ffrl-a-ak-ber
+Kind=gre
+
+[Tunnel]
+Remote=185.66.195.0
+Local=78.47.218.181
+TTL=64

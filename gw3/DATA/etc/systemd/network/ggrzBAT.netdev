@@ -1,0 +1,16 @@
+[NetDev]
+Name=ggrzBAT
+Kind=batadv
+MACAddress=de:ad:be:ef:03:02
+
+[BatmanAdvanced]
+GatewayMode=server
+RoutingAlgorithm=batman-iv
+OriginatorIntervalSec=5
+HopPenalty=60
+OriginatorIntervalSec=10
+GatewayBandwidthDown=96M
+GatewayBandwidthUp=96M
+# wegen falscher Schreibweise in systemd
+GatewayBandwithDown=96M
+GatewayBandwithUp=96M
