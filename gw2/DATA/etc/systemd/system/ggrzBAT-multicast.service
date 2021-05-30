@@ -1,0 +1,13 @@
+[Unit]
+Description=Enable Multicast Router for ggrzBAT
+Wants=network.target
+Before=network.target
+BindsTo=sys-subsystem-net-devices-ggrzBAT.device
+After=sys-subsystem-net-devices-ggrzBAT.device
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c "sleep 1 && /bin/echo 2 > /sys/class/net/ggrzBAT/brport/multicast_router"
+
+[Install]
+WantedBy=multi-user.target

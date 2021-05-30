@@ -1,0 +1,14 @@
+[Unit]
+Description=ext-respondd (respondd status for servers)
+BindsTo=sys-subsystem-net-devices-ggrzBAT.device
+After=network.target sys-subsystem-net-devices-ggrzBAT.device
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/ext-respondd
+ExecStart=/opt/ext-respondd/ext-respondd.py
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Update verschiedener Freifunk-Konfigurationen und -Daten
+RefuseManualStart=no
+RefuseManualStop=no
+ 
+[Timer]
+Persistent=false
+OnCalendar=*-*-* *:37:00
+Unit=ff-updates.service
+ 
+[Install]
+WantedBy=default.target

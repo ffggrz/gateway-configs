@@ -1,0 +1,5 @@
+[Match]
+Name=ggrzBAT
+
+[Network]
+Bridge=ggrzBR

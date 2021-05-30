@@ -1,0 +1,54 @@
+#!/bin/bash
+# Simple script for update of tinc IC-VPN hosts from git
+# upstream and automated creation of tincd configuration.
+
+# Tinc IC-VPN configuration directory
+TINC_ICVPN=/etc/tinc/icVPN
+
+# IC-VPN configuration file
+TINC_CONF=tinc.conf
+
+# IC-VPN configuration file header
+TINC_CONF_HEADER=tinc.conf.header
+
+# IC-VPN host file directory
+TINC_HOSTS=hosts
+function getCurrentVersion() {
+# Get hash from latest revision
+git log --format=format:%H -1
+}
+
+cd $TINC_ICVPN
+
+# Get current version hash
+GIT_REVISION=$(getCurrentVersion)
+
+# Automagically commit local changes
+# This preserves local changes
+git commit -m "CRON: auto commit"
+
+# Pull latest changes from upstream
+git fetch
+git merge origin/master -m "Auto Merge"
+
+# Get new version hash
+GIT_NEW_REVISION=$(getCurrentVersion)
+
+if [ $GIT_REVISION != $GIT_NEW_REVISION ]
+then
+  # Start with header file for tinc configuration
+  cp $TINC_CONF_HEADER $TINC_CONF
+
+  # Iterate through hosts in metanodes
+  while read HOST; do
+    # search correspondending host with address
+    grep -iq '^Address' -- hosts/"$HOST" || continue
+    # Add ConnectTo line for current host
+    echo "ConnectTo = $HOST" >> $TINC_CONF
+  done < metanodes
+
+  # Reload updated configuration
+  echo "Reload tincd configuration."
+  kill -HUP $(pidof tincd)
+fi
+

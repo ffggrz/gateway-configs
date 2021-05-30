@@ -1,0 +1,22 @@
+FQDN = gwx.freifunk-gera-greiz.de
+ORGNAME = Freifunk example gateway
+ALTNAMES = DNS:gwx.freifunk-gera-greiz.de , DNS:freifunk-gera-greiz.de
+
+[ req ]
+default_bits = 4096
+default_md = sha256
+prompt = no
+encrypt_key = no
+distinguished_name = dn
+req_extensions = req_ext
+default_keyfile = ../KEYS/$FQDN-key.pem
+
+
+[ dn ]
+C = DE
+O = $ORGNAME
+CN = $FQDN
+
+
+[ req_ext ]
+subjectAltName = $ALTNAMES

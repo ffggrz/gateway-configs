@@ -1,0 +1,13 @@
+[Unit]
+Description=tunneldigger tunnelling network daemon using l2tpv3 (connection %I)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/tmp
+ExecStart=python -m tunneldigger_broker.main /etc/tunneldigger/%I/tunneldigger.conf
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

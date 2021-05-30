@@ -1,0 +1,6 @@
+[Match]
+Name=DummyNetworkPort
+
+[Network]
+Description=Dummy, um default der Appliance (DHCP für alle Schnittstellen) zu überschreiben
+DHCP=yes

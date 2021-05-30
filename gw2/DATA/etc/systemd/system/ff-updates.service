@@ -1,0 +1,12 @@
+[Unit]
+Description=Update verschiedener Freifunk-Konfigurationen und -Daten
+RefuseManualStart=no
+RefuseManualStop=yes
+ 
+[Service]
+Type=oneshot
+ExecStart=/etc/scripts/update-dnsmasq-hostsfile
+ExecStart=/etc/fastd/update-fastd-peers
+##ExecStart=/etc/icvpn/update-icvpn-meta
+ExecStart=/etc/tinc/icVPN/update-tincd-icvpn
+#ExecStart=/etc/scripts/vnstat-graphs.sh

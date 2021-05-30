@@ -1,0 +1,9 @@
+[NetDev]
+Name=ggrzBR
+Kind=bridge
+MACAddress=de:ad:be:ef:02:00
+
+[Bridge]
+HelloTimeSec=10
+ForwardDelaySec=0
+STP=off

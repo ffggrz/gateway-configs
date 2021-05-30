@@ -1,0 +1,75 @@
+# Example of fixed IP address configuration:
+#
+# Customize and move as 00-eth0.network to /etc/systemd/network
+# (refer to "man systemd.network", "man systemd-resolved")
+#
+# DON'T FORGET: add appropriate entries in /etc/hosts
+#  <IPv4> <fqdn> <hostname>
+#  <IPv6> <fqdn> <hostname>
+
+[Match]
+Name=eth0
+
+[Network]
+Description=first network port
+# Primary IPv4 address Hetzner Cloud Server (162.55.59.207)
+DHCP=ipv4
+# Floating IP gw2-IPv4
+Address=94.130.191.8/32
+# Primary IPv6 address Hetzner Cloud Server
+Address=2a01:4f8:1c1c:566c::1/128
+# Floating IP gw2-IPv6
+Address=2a01:4f8:1c0c:80c3::/128
+# IPv6 gateway (IPv4 via DHCP)
+Gateway=fe80::1
+# Domains
+Domains=freifunk-gera-greiz.de
+Domains=ffggrz.de
+Domains=ffggrz
+
+Tunnel=ggrzTUN-2-1
+Tunnel=ggrzTUN-2-3
+Tunnel=ffrl-a-ak-ber
+Tunnel=ffrl-a-ix-dus
+Tunnel=ffrl-b-ak-ber
+Tunnel=ffrl-b-ix-dus
+
+[Route]
+Destination=192.168.0.0/16
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=172.16.0.0/12
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=10.0.0.0/8
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=100.64.0.0/10
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=169.254.0.0/16
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=192.0.2.0/24
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=198.51.100.0/24
+Type=unreachable
+Metric=999
+
+[Route]
+Destination=203.0.113.0/24
+Type=unreachable
+Metric=999

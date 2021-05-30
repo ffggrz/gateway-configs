@@ -1,0 +1,8 @@
+Name = gera_greiz2
+PrivateKeyFile = /etc/tinc/icVPN/rsa_key.priv
+Mode = Switch
+PingTimeout = 30
+Port = 10781
+Hostnames = yes
+Interface = icVPN
+

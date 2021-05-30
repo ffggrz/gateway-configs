@@ -1,0 +1,8 @@
+[NetDev]
+Name=ffrl-a-ix-dus
+Kind=gre
+
+[Tunnel]
+Remote=185.66.193.0
+Local=94.130.191.8
+TTL=64
