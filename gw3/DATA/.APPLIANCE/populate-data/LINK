@@ -19,6 +19,7 @@
 /etc/vnstat-graphs.sh
 /opt/ext-respondd/alias.json
 /opt/ext-respondd/config.json
+/opt/mesh-announce/respondd.conf
 /var/lib/ebtables
 /var/lib/ip6tables
 /var/lib/iptables
