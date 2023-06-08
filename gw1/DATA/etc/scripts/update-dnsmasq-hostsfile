@@ -45,7 +45,7 @@ then
 
   /usr/sbin/dnsmasq --test
   if [ $? -eq 0 ]; then
-    /bin/systemctl reload dnsmasq
+    /bin/systemctl restart dnsmasq
   else
     echo "dnsmasq not reloaded!"
   fi

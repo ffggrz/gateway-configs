@@ -6,8 +6,9 @@ log to syslog level verbose;
 
 interface "ggrzVPN";
 
-method "null@l2tp";
+method "aes128-gcm";
 method "salsa2012+umac";
+method "null+salsa2012+umac";
 
 # Bind auf externe v4 and v6 Adressen
 bind 136.243.179.182:10181;

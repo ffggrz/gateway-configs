@@ -2,6 +2,7 @@
 *raw
 :PREROUTING ACCEPT [30:2556]
 :OUTPUT ACCEPT [22:5660]
+[0:0] -A PREROUTING -d 2a01:4f8:262:4681:201::182/128 -i ggrzBR -p udp -m multiport --dports 10181,20181 -m comment --comment "drop VPN from mesh" -j DROP
 [0:0] -A PREROUTING -d 2a01:4f8:172:19ea:201::182/128 -i ggrzBR -p udp -m multiport --dports 10181,20181 -m comment --comment "drop VPN from mesh" -j DROP
 [0:0] -A PREROUTING -d 2a01:4f8:1c0c:80c3::8/128 -i ggrzBR -p udp -m multiport --dports 10181,20181 -m comment --comment "drop VPN from mesh" -j DROP
 [0:0] -A PREROUTING -d 2a01:4f8:c01f:d3::1/128 -i ggrzBR -p udp -m multiport --dports 10181,20181 -m comment --comment "drop VPN from mesh" -j DROP

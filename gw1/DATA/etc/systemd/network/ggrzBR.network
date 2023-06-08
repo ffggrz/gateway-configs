@@ -8,6 +8,8 @@ Address=10.181.0.11/18
 Address=fdb5:078b:64cc::11/64
 # Freifunkinterne Adresse IPv6 FFRL
 Address=2a03:2260:100b::11/64
+# RAs der anderen Gateways ignorieren
+IPv6AcceptRA=no
 
 [Route]
 # Kernelroute für lokales ggrz-IPv4-Netz in Table ggrz

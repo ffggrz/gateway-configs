@@ -17,6 +17,7 @@
 /etc/tinc/icVPN
 /etc/tunneldigger
 /etc/vnstat-graphs.sh
+/opt/mesh-announce/respondd.conf
 /opt/ext-respondd/alias.json
 /opt/ext-respondd/config.json
 /var/lib/ebtables
