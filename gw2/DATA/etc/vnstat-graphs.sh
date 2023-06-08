@@ -6,20 +6,23 @@
 # vnstat -i ffrl-b-ix-dus --add --setalias bb4
 # vnstat -i icVPN --add
 # vnstat -i ggrzBAT --setalias intern
+# vnstat -i eth0 --setalias server
 
 set -e
 
-IFACES=("bb1+bb2+bb3+bb4" "icVPN" "intern")
-IFTXT=("Backbone-Rheinland" "Intercity-VPN" "intern")
+##IFACES=("ffrl-a-ak-ber+ffrl-a-ix-dus+ffrl-b-ak-ber+ffrl-b-ix-dus" "icVPN" "ggrzBAT")
+##IFTXT=("Backbone-Rheinland" "Intercity-VPN" "intern")
+IFACES=("ffrl-a-ak-ber+ffrl-a-ix-dus+ffrl-b-ak-ber+ffrl-b-ix-dus" "eth0" "ggrzBAT")
+IFTXT=("Backbone-Rheinland" "Server" "intern")
 
 TARGET=/var/www/localhost/htdocs/vnstat/
 
 for i in ${!IFACES[@]}; do
-    /usr/bin/vnstati -i ${IFACES[$i]} --headertext ${IFTXT[$i]} -h -o ${TARGET}${IFACES[$i]}_hourly.png
-    /usr/bin/vnstati -i ${IFACES[$i]} --headertext ${IFTXT[$i]} -d -o ${TARGET}${IFACES[$i]}_daily.png
-    /usr/bin/vnstati -i ${IFACES[$i]} --headertext ${IFTXT[$i]} -m -o ${TARGET}${IFACES[$i]}_monthly.png
-    /usr/bin/vnstati -i ${IFACES[$i]} --headertext ${IFTXT[$i]} -t -o ${TARGET}${IFACES[$i]}_top10.png
-    /usr/bin/vnstati -i ${IFACES[$i]} --headertext ${IFTXT[$i]} -s -o ${TARGET}${IFACES[$i]}_summary.png
+    /usr/bin/vnstati -i ${IFACES[$i]} --headertext "${IFTXT[$i]} (hourly)" -h -o ${TARGET}${IFACES[$i]}_hourly.png
+    /usr/bin/vnstati -i ${IFACES[$i]} --headertext "${IFTXT[$i]} (daily)" -d -o ${TARGET}${IFACES[$i]}_daily.png
+    /usr/bin/vnstati -i ${IFACES[$i]} --headertext "${IFTXT[$i]} (monthly)" -m -o ${TARGET}${IFACES[$i]}_monthly.png
+    /usr/bin/vnstati -i ${IFACES[$i]} --headertext "${IFTXT[$i]} (Top10)" -t -o ${TARGET}${IFACES[$i]}_top10.png
+    /usr/bin/vnstati -i ${IFACES[$i]} --headertext "${IFTXT[$i]} (Summary)" -s -o ${TARGET}${IFACES[$i]}_summary.png
 done
 
 cat > ${TARGET}index.html <<EOT
@@ -31,6 +34,9 @@ cat > ${TARGET}index.html <<EOT
   <titleu1 - Network Traffic</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
 </head>
 
 <body style="white-space: nowrap">
